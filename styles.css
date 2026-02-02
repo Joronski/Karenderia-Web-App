@@ -184,11 +184,17 @@ body::before {
     transition: all var(--transition-base);
 }
 
-.btn-reset:hover {
+.btn-reset:hover,
+.btn-reset:focus {
     background: var(--accent-lime);
     color: var(--primary-green-dark);
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(134, 239, 172, 0.4);
+}
+
+.btn-reset:focus-visible {
+    outline: 3px solid var(--white);
+    outline-offset: 2px;
 }
 
 .btn-reset svg {
@@ -312,6 +318,10 @@ body::before {
     transition: all var(--transition-base);
     position: relative;
     overflow: hidden;
+    width: 100%;
+    text-align: left;
+    font-family: var(--font-body);
+    display: block;
 }
 
 .menu-item::before {
@@ -329,10 +339,17 @@ body::before {
     left: 100%;
 }
 
-.menu-item:hover {
+.menu-item:hover,
+.menu-item:focus {
     border-color: var(--primary-green);
     box-shadow: 0 8px 16px rgba(13, 122, 79, 0.15);
     transform: translateX(5px);
+    outline: none;
+}
+
+.menu-item:focus-visible {
+    outline: 3px solid var(--accent-green);
+    outline-offset: 2px;
 }
 
 .menu-item.selected {
@@ -414,6 +431,12 @@ body::before {
     color: var(--gray-500);
 }
 
+.order-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
 .order-item {
     background: var(--bg-green-subtle);
     border: 2px solid var(--accent-lime);
@@ -484,9 +507,15 @@ body::before {
     transition: all var(--transition-fast);
 }
 
-.qty-btn:hover {
+.qty-btn:hover,
+.qty-btn:focus {
     background: var(--primary-green-dark);
     transform: scale(1.1);
+}
+
+.qty-btn:focus-visible {
+    outline: 2px solid var(--accent-green);
+    outline-offset: 2px;
 }
 
 .qty-display {
@@ -510,9 +539,15 @@ body::before {
     transition: all var(--transition-fast);
 }
 
-.btn-remove:hover {
+.btn-remove:hover,
+.btn-remove:focus {
     background: #dc2626;
     transform: scale(1.1);
+}
+
+.btn-remove:focus-visible {
+    outline: 2px solid var(--danger);
+    outline-offset: 2px;
 }
 
 .order-summary {
@@ -579,9 +614,15 @@ body::before {
     box-shadow: 0 4px 12px rgba(13, 122, 79, 0.3);
 }
 
-.btn-complete:hover {
+.btn-complete:hover,
+.btn-complete:focus {
     box-shadow: 0 6px 20px rgba(13, 122, 79, 0.4);
     transform: translateY(-2px);
+}
+
+.btn-complete:focus-visible {
+    outline: 3px solid var(--accent-green);
+    outline-offset: 2px;
 }
 
 .btn-clear {
@@ -590,9 +631,15 @@ body::before {
     border: 2px solid var(--gray-300);
 }
 
-.btn-clear:hover {
+.btn-clear:hover,
+.btn-clear:focus {
     background: var(--gray-100);
     border-color: var(--gray-400);
+}
+
+.btn-clear:focus-visible {
+    outline: 3px solid var(--gray-400);
+    outline-offset: 2px;
 }
 
 /* ===================================
