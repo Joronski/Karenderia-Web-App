@@ -908,6 +908,10 @@ body::before {
     .stat-value {
         font-size: 1.5rem;
     }
+    
+    .menu-item-image-container {
+        height: 160px;
+    }
 }
 
 @media (max-width: 767px) {
@@ -943,6 +947,31 @@ body::before {
     .stat-icon {
         width: 50px;
         height: 50px;
+    }
+    
+    .menu-item-image-container {
+        height: 140px;
+    }
+    
+    .menu-item-name {
+        font-size: 1.05rem;
+    }
+    
+    .menu-item-price {
+        font-size: 1.2rem;
+    }
+    
+    .menu-item-description {
+        font-size: 0.8rem;
+    }
+    
+    .menu-item-category {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.7rem;
+    }
+    
+    .menu-item-content {
+        padding: 0.85rem;
     }
 }
 
