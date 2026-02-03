@@ -1,10 +1,9 @@
 // ===================================
 // Karenderia Web App - JavaScript
 // Integrates all team member features
-// Assigned Devs: Student 10 - Dela Torre, Student 11 - Layog, Student 12 - Rosario
 // ===================================
 
-// Global State - Student 10 (Dela Torre)
+// Global State
 const state = {
     menu: [],
     currentOrder: [],
@@ -19,7 +18,7 @@ const state = {
 let salesChart = null;
 
 // ===================================
-// Initialization - Student 10 (Dela Torre)
+// Initialization - Member 10 (Dela Torre)
 // ===================================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -37,7 +36,7 @@ function initializeApp() {
 }
 
 // ===================================
-// Date Display - Student 10 (Dela Torre)
+// Date Display Member 10 (Dela Torre)
 // ===================================
 
 function updateDate() {
@@ -57,8 +56,9 @@ function updateDate() {
 }
 
 // ===================================
-// Menu Management - Student 10 (Dela Torre)
+// Menu Management Member 10 (Dela Torre)
 // ===================================
+
 function loadMenu() {
     // Sample menu items - Student 2's contribution
     state.menu = [
@@ -68,7 +68,7 @@ function loadMenu() {
             price: 85.00,
             description: 'Classic Filipino chicken adobo with soy sauce and vinegar',
             category: 'Main Dish',
-            image: 'https://images.unsplash.com/photo-1626804475297-41608ea09aeb?w=400&h=300&fit=crop'
+            image: 'https://images.unsplash.com/photo-1626804475297-41608ea09aeb?w=400&h=300&fit=crop&auto=format'
         },
         {
             id: 2,
@@ -76,7 +76,7 @@ function loadMenu() {
             price: 95.00,
             description: 'Sour pork soup with tamarind and vegetables',
             category: 'Main Dish',
-            image: 'https://images.unsplash.com/photo-1604908815346-f41641338f17?w=400&h=300&fit=crop'
+            image: 'https://th.bing.com/th/id/R.fee8e28d5061de477d251fc528f77296?rik=yokZ6YWB56PK4Q&riu=http%3a%2f%2fcdn.shopify.com%2fs%2ffiles%2f1%2f0083%2f7238%2f7958%2fproducts%2fSinigang_na_Baboy.jpg%3fv%3d1623318122&ehk=4wMJ0ajkz%2fvgOY7%2fUccy0k8Nv8f6Wtg7yUsmp8vk9ws%3d&risl=&pid=ImgRaw&r=0'
         },
         {
             id: 3,
@@ -84,7 +84,7 @@ function loadMenu() {
             price: 120.00,
             description: 'Crispy deep-fried pork belly',
             category: 'Main Dish',
-            image: 'https://images.unsplash.com/photo-1632778149955-e80f8ceca2e8?w=400&h=300&fit=crop'
+            image: 'https://images.unsplash.com/photo-1632778149955-e80f8ceca2e8?w=400&h=300&fit=crop&auto=format'
         },
         {
             id: 4,
@@ -92,7 +92,7 @@ function loadMenu() {
             price: 70.00,
             description: 'Mixed vegetables with shrimp paste',
             category: 'Vegetables',
-            image: 'https://images.unsplash.com/photo-1572449043416-55f4685c9bb7?w=400&h=300&fit=crop'
+            image: 'https://images.unsplash.com/photo-1572449043416-55f4685c9bb7?w=400&h=300&fit=crop&auto=format'
         },
         {
             id: 5,
@@ -100,7 +100,7 @@ function loadMenu() {
             price: 110.00,
             description: 'Oxtail stew in peanut sauce',
             category: 'Main Dish',
-            image: 'https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=400&h=300&fit=crop'
+            image: 'https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=400&h=300&fit=crop&auto=format'
         },
         {
             id: 6,
@@ -108,7 +108,7 @@ function loadMenu() {
             price: 130.00,
             description: 'Beef marrow soup with vegetables',
             category: 'Soup',
-            image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&h=300&fit=crop'
+            image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&h=300&fit=crop&auto=format'
         },
         {
             id: 7,
@@ -116,7 +116,7 @@ function loadMenu() {
             price: 60.00,
             description: 'Stir-fried noodles with vegetables',
             category: 'Noodles',
-            image: 'https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=400&h=300&fit=crop'
+            image: 'https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?w=400&h=300&fit=crop&auto=format'
         },
         {
             id: 8,
@@ -124,7 +124,7 @@ function loadMenu() {
             price: 50.00,
             description: 'Filipino-style spring rolls (10 pieces)',
             category: 'Appetizer',
-            image: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=400&h=300&fit=crop'
+            image: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=400&h=300&fit=crop&auto=format'
         },
         {
             id: 9,
@@ -132,7 +132,7 @@ function loadMenu() {
             price: 75.00,
             description: 'Mixed shaved ice dessert with beans and fruits',
             category: 'Dessert',
-            image: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&h=300&fit=crop'
+            image: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&h=300&fit=crop&auto=format'
         },
         {
             id: 10,
@@ -140,7 +140,7 @@ function loadMenu() {
             price: 40.00,
             description: 'Banana spring rolls with jackfruit (3 pieces)',
             category: 'Dessert',
-            image: 'https://images.unsplash.com/photo-1587132117816-5a0b94f9fcaa?w=400&h=300&fit=crop'
+            image: 'https://recipewise.net/recipe/turon-sweet-fried-banana-spring-rolls/9bd5a11fe46214cd11ff0fd00cd89390.jpg'
         },
         {
             id: 11,
@@ -148,15 +148,15 @@ function loadMenu() {
             price: 15.00,
             description: 'Steamed white rice',
             category: 'Side',
-            image: 'https://images.unsplash.com/photo-1516684732162-798a0062be99?w=400&h=300&fit=crop'
+            image: 'https://images.unsplash.com/photo-1516684732162-798a0062be99?w=400&h=300&fit=crop&auto=format'
         },
         {
             id: 12,
-            name: 'Softdrinks',
+            name: 'Softdrinks (Coca Cola, Sprite, Royal, etc.)',
             price: 25.00,
             description: 'Assorted soft drinks',
             category: 'Beverage',
-            image: 'https://images.unsplash.com/photo-1581006852262-e4307cf6283a?w=400&h=300&fit=crop'
+            image: 'https://tse2.mm.bing.net/th/id/OIP.K0w3s-ZhkiIdvl29zbfpoAHaFC?w=1200&h=816&rs=1&pid=ImgDetMain&o=7&rm=3'
         }
     ];
 }
@@ -177,8 +177,8 @@ function renderMenu() {
                 <img src="${item.image}" 
                      alt="${item.name}" 
                      class="menu-item-image"
-                     loading="lazy"
-                     onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=300&fit=crop'">
+                     crossorigin="anonymous"
+                     onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/0d7a4f/ffffff?text=${encodeURIComponent(item.name)}';">
                 <span class="menu-item-category">${item.category}</span>
             </div>
             <div class="menu-item-content">
@@ -192,11 +192,15 @@ function renderMenu() {
         
         menuList.appendChild(menuItem);
     });
+    
+    // Log confirmation that menu was rendered
+    console.log(`Menu rendered with ${state.menu.length} items`);
 }
 
 // ===================================
-// Order Management - Student 11 (Layog)
+// Order Management Member 11 (Layog)
 // ===================================
+
 function addToOrder(itemId) {
     const menuItem = state.menu.find(item => item.id === itemId);
     const existingItem = state.currentOrder.find(item => item.id === itemId);
@@ -358,7 +362,7 @@ function completeOrder() {
 }
 
 // ===================================
-// Daily Sales Summary - Student 11 (Layog)
+// Daily Sales Summary - Member 11 (Layog)
 // ===================================
 
 function updateSalesDisplay() {
@@ -505,7 +509,7 @@ function updateChart() {
 }
 
 // ===================================
-// Completion Animation - Student 12 (Rosario)
+// Completion Animation - Member 12 (Rosario)
 // ===================================
 
 function showCompletionAnimation(order) {
@@ -523,7 +527,7 @@ function showCompletionAnimation(order) {
 }
 
 // ===================================
-// Local Storage Management - Student 12 (Rosario)
+// Local Storage Management - Member 12 (Rosario)
 // ===================================
 
 function saveToLocalStorage() {
@@ -573,7 +577,7 @@ function resetApp() {
 }
 
 // ===================================
-// Utility Functions - Student 12 (Rosario)
+// Utility Functions - Member 12 (Rosario)
 // ===================================
 
 function formatCurrency(amount) {
