@@ -193,3 +193,313 @@ function renderMenu() {
         menuList.appendChild(menuItem);
     });
 }
+
+// ===================================
+// Order Management - Student 11 (Layog)
+// ===================================
+function addToOrder(itemId) {
+    const menuItem = state.menu.find(item => item.id === itemId);
+    const existingItem = state.currentOrder.find(item => item.id === itemId);
+    
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        state.currentOrder.push({
+            ...menuItem,
+            quantity: 1
+        });
+    }
+    
+    renderCurrentOrder();
+    highlightMenuItem(itemId);
+}
+
+function removeFromOrder(itemId) {
+    state.currentOrder = state.currentOrder.filter(item => item.id !== itemId);
+    renderCurrentOrder();
+    unhighlightMenuItem(itemId);
+}
+
+function updateQuantity(itemId, change) {
+    const item = state.currentOrder.find(item => item.id === itemId);
+    if (item) {
+        item.quantity += change;
+        if (item.quantity <= 0) {
+            removeFromOrder(itemId);
+        } else {
+            renderCurrentOrder();
+        }
+    }
+}
+
+function renderCurrentOrder() {
+    const orderItems = document.getElementById('orderItems');
+    const orderSummary = document.getElementById('orderSummary');
+    const orderActions = document.getElementById('orderActions');
+    const emptyState = document.querySelector('.order-empty-state');
+    
+    if (state.currentOrder.length === 0) {
+        orderItems.innerHTML = '';
+        emptyState.style.display = 'block';
+        orderSummary.style.display = 'none';
+        orderActions.style.display = 'none';
+        return;
+    }
+    
+    emptyState.style.display = 'none';
+    orderSummary.style.display = 'block';
+    orderActions.style.display = 'flex';
+    
+    orderItems.innerHTML = '';
+    let totalItems = 0;
+    let totalPrice = 0;
+    
+    state.currentOrder.forEach(item => {
+        const orderItem = document.createElement('li');
+        orderItem.className = 'order-item';
+        
+        const itemTotal = item.price * item.quantity;
+        totalItems += item.quantity;
+        totalPrice += itemTotal;
+        
+        orderItem.innerHTML = `
+            <div class="order-item-info">
+                <div class="order-item-name">${item.name}</div>
+                <div class="order-item-price">₱${item.price.toFixed(2)} × ${item.quantity} = ₱${itemTotal.toFixed(2)}</div>
+            </div>
+            <div class="order-item-actions">
+                <div class="quantity-controls">
+                    <button class="qty-btn" onclick="updateQuantity(${item.id}, -1)" aria-label="Decrease quantity">-</button>
+                    <span class="qty-display" aria-label="Quantity">${item.quantity}</span>
+                    <button class="qty-btn" onclick="updateQuantity(${item.id}, 1)" aria-label="Increase quantity">+</button>
+                </div>
+                <button class="btn-remove" onclick="removeFromOrder(${item.id})" aria-label="Remove ${item.name} from order">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+        `;
+        
+        orderItems.appendChild(orderItem);
+    });
+    
+    document.getElementById('totalItems').textContent = totalItems;
+    document.getElementById('totalPrice').textContent = `₱${totalPrice.toFixed(2)}`;
+}
+
+function highlightMenuItem(itemId) {
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach((item, index) => {
+        if (state.menu[index].id === itemId) {
+            item.classList.add('selected');
+        }
+    });
+}
+
+function unhighlightMenuItem(itemId) {
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach((item, index) => {
+        if (state.menu[index].id === itemId) {
+            item.classList.remove('selected');
+        }
+    });
+}
+
+function clearOrder() {
+    state.currentOrder = [];
+    document.querySelectorAll('.menu-item').forEach(item => {
+        item.classList.remove('selected');
+    });
+    renderCurrentOrder();
+}
+
+function completeOrder() {
+    if (state.currentOrder.length === 0) return;
+    
+    const totalPrice = state.currentOrder.reduce((sum, item) => 
+        sum + (item.price * item.quantity), 0
+    );
+    
+    const order = {
+        id: state.orders.length + 1,
+        items: [...state.currentOrder],
+        total: totalPrice,
+        timestamp: new Date(),
+        time: new Date().toLocaleTimeString('en-US', { 
+            hour: '2-digit', 
+            minute: '2-digit' 
+        })
+    };
+    
+    state.orders.push(order);
+    
+    // Update sales data
+    state.salesData.totalSales += totalPrice;
+    state.salesData.orderCount += 1;
+    
+    const hour = new Date().getHours();
+    state.salesData.salesByHour[hour] += totalPrice;
+    
+    // Save to localStorage
+    saveToLocalStorage();
+    
+    // Show completion animation
+    showCompletionAnimation(order);
+    
+    // Clear current order
+    clearOrder();
+    
+    // Update displays
+    updateSalesDisplay();
+    updateChart();
+    renderOrderHistory();
+}
+
+// ===================================
+// Daily Sales Summary - Student 11 (Layog)
+// ===================================
+
+function updateSalesDisplay() {
+    document.getElementById('totalSales').textContent = 
+        `₱${state.salesData.totalSales.toFixed(2)}`;
+    
+    document.getElementById('totalOrders').textContent = 
+        state.salesData.orderCount;
+    
+    const averageOrder = state.salesData.orderCount > 0 
+        ? state.salesData.totalSales / state.salesData.orderCount 
+        : 0;
+    
+    document.getElementById('averageOrder').textContent = 
+        `₱${averageOrder.toFixed(2)}`;
+}
+
+function renderOrderHistory() {
+    const historyList = document.getElementById('orderHistory');
+    
+    if (state.orders.length === 0) {
+        historyList.innerHTML = `
+            <div class="empty-history">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M12 8v4l3 3"/>
+                    <circle cx="12" cy="12" r="10"/>
+                </svg>
+                <p>No orders yet today</p>
+            </div>
+        `;
+        return;
+    }
+    
+    historyList.innerHTML = '';
+    
+    // Show last 5 orders
+    const recentOrders = state.orders.slice(-5).reverse();
+    
+    recentOrders.forEach(order => {
+        const historyItem = document.createElement('div');
+        historyItem.className = 'history-item';
+        
+        const itemCount = order.items.reduce((sum, item) => sum + item.quantity, 0);
+        
+        historyItem.innerHTML = `
+            <div class="history-item-header">
+                <span class="history-order-number">Order #${order.id}</span>
+                <span class="history-time">${order.time}</span>
+            </div>
+            <div style="color: var(--gray-600); font-size: 0.9rem; margin-bottom: 0.5rem;">
+                ${itemCount} item${itemCount !== 1 ? 's' : ''}
+            </div>
+            <div class="history-total">₱${order.total.toFixed(2)}</div>
+        `;
+        
+        historyList.appendChild(historyItem);
+    });
+}
+
+function initializeChart() {
+    const ctx = document.getElementById('salesChart');
+    if (!ctx) return;
+    
+    const hours = Array.from({ length: 24 }, (_, i) => {
+        const hour = i % 12 || 12;
+        const period = i < 12 ? 'AM' : 'PM';
+        return `${hour}${period}`;
+    });
+    
+    salesChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: hours,
+            datasets: [{
+                label: 'Sales',
+                data: state.salesData.salesByHour,
+                backgroundColor: 'rgba(13, 122, 79, 0.1)',
+                borderColor: 'rgba(13, 122, 79, 1)',
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: 'rgba(45, 212, 161, 1)',
+                pointBorderColor: 'rgba(13, 122, 79, 1)',
+                pointBorderWidth: 2,
+                pointRadius: 4,
+                pointHoverRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(13, 122, 79, 0.9)',
+                    titleColor: '#fff',
+                    bodyColor: '#fff',
+                    padding: 12,
+                    borderColor: 'rgba(45, 212, 161, 1)',
+                    borderWidth: 2,
+                    displayColors: false,
+                    callbacks: {
+                        label: function(context) {
+                            return '₱' + context.parsed.y.toFixed(2);
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return '₱' + value;
+                        },
+                        color: '#4b5563'
+                    },
+                    grid: {
+                        color: 'rgba(229, 231, 235, 0.5)'
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: '#4b5563',
+                        maxRotation: 45,
+                        minRotation: 45
+                    },
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
+}
+
+function updateChart() {
+    if (salesChart) {
+        salesChart.data.datasets[0].data = state.salesData.salesByHour;
+        salesChart.update();
+    }
+}
