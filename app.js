@@ -18,7 +18,7 @@ const state = {
 let salesChart = null;
 
 // ===================================
-// Initialization
+// Initialization - Member 10 (Dela Torre)
 // ===================================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -36,7 +36,7 @@ function initializeApp() {
 }
 
 // ===================================
-// Date Display
+// Date Display Member 10 (Dela Torre)
 // ===================================
 
 function updateDate() {
@@ -56,7 +56,7 @@ function updateDate() {
 }
 
 // ===================================
-// Menu Management (Student 2)
+// Menu Management Member 10 (Dela Torre)
 // ===================================
 
 function loadMenu() {
@@ -198,7 +198,7 @@ function renderMenu() {
 }
 
 // ===================================
-// Order Management (Student 3)
+// Order Management Member 11 (Layog)
 // ===================================
 
 function addToOrder(itemId) {
@@ -339,7 +339,7 @@ function completeOrder() {
     
     state.orders.push(order);
     
-    // Update sales data (Student 4)
+    // Update sales data
     state.salesData.totalSales += totalPrice;
     state.salesData.orderCount += 1;
     
@@ -362,7 +362,7 @@ function completeOrder() {
 }
 
 // ===================================
-// Daily Sales Summary (Student 4)
+// Daily Sales Summary - Member 11 (Layog)
 // ===================================
 
 function updateSalesDisplay() {
@@ -509,7 +509,7 @@ function updateChart() {
 }
 
 // ===================================
-// Completion Animation
+// Completion Animation - Member 12 (Rosario)
 // ===================================
 
 function showCompletionAnimation(order) {
@@ -527,7 +527,7 @@ function showCompletionAnimation(order) {
 }
 
 // ===================================
-// Local Storage Management
+// Local Storage Management - Member 12 (Rosario)
 // ===================================
 
 function saveToLocalStorage() {
@@ -577,7 +577,7 @@ function resetApp() {
 }
 
 // ===================================
-// Utility Functions
+// Utility Functions - Member 12 (Rosario)
 // ===================================
 
 function formatCurrency(amount) {

@@ -1,9 +1,10 @@
 /* ===================================
    Karenderia Web App Styles
    Color Palette: Green Theme
-   Designer: Student 5 - UI & Documentation
+   Designer: Student 6 - Aldep, Student 7 - Quitorio, Student 8 - Datinguinoo, Student 9 - Mateo
    =================================== */
 
+/* Implementation of Color Variables (Student 6) */
 :root {
     /* Green Color Palette */
     --primary-green: #0d7a4f;
@@ -48,7 +49,7 @@
 }
 
 /* ===================================
-   Base Styles
+   Base Styles (Student 6)
    =================================== */
 
 * {
@@ -83,7 +84,7 @@ body::before {
 }
 
 /* ===================================
-   Header Styles
+   Header Styles (Student 7)
    =================================== */
 
 .main-header {
@@ -206,7 +207,7 @@ body::before {
 }
 
 /* ===================================
-   Main Container
+   Main Container (Student 7)
    =================================== */
 
 .main-container {
@@ -228,7 +229,7 @@ body::before {
 }
 
 /* ===================================
-   Card Styles
+   Card Styles (Student 7)
    =================================== */
 
 .card {
@@ -304,8 +305,9 @@ body::before {
     background: var(--primary-green);
 }
 
+
 /* ===================================
-   Menu Management (Student 2)
+   Menu Management (Student 8)
    =================================== */
 
 .menu-item {
@@ -517,7 +519,7 @@ body::before {
 }
 
 /* ===================================
-   Order Management (Student 3)
+   Order Management (Student 8)
    =================================== */
 
 .order-empty-state {
@@ -764,7 +766,7 @@ body::before {
 }
 
 /* ===================================
-   Daily Sales Summary (Student 4)
+   Daily Sales Summary (Student 8)
    =================================== */
 
 .sales-stats {
@@ -931,7 +933,7 @@ body::before {
 }
 
 /* ===================================
-   Completion Modal
+   Completion Modal (Student 9)
    =================================== */
 
 .modal-overlay {
@@ -1012,7 +1014,7 @@ body::before {
 }
 
 /* ===================================
-   Responsive Design
+   Responsive Design (Student 9)
    =================================== */
 
 @media (max-width: 991px) {
@@ -1095,7 +1097,7 @@ body::before {
 }
 
 /* ===================================
-   Print Styles
+   Print Styles (Student 9)
    =================================== */
 
 @media print {
