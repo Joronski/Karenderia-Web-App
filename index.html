@@ -117,6 +117,85 @@
                         </div>
                     </article>
                 </section>
+
+                <!-- Right Sidebar - Daily Sales Summary Section (Student 4 - Navarro) -->
+                <aside class="col-lg-4">
+                    <section class="card sales-card" aria-labelledby="sales-heading">
+                        <header class="card-header">
+                            <h2 class="section-title" id="sales-heading">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                    <line x1="12" y1="20" x2="12" y2="10"/>
+                                    <line x1="18" y1="20" x2="18" y2="4"/>
+                                    <line x1="6" y1="20" x2="6" y2="16"/>
+                                </svg>
+                                Daily Sales Summary
+                            </h2>
+                        </header>
+                        <div class="card-body">
+                            <div class="sales-stats">
+                                <article class="stat-card stat-revenue">
+                                    <div class="stat-icon" aria-hidden="true">
+                                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <line x1="12" y1="1" x2="12" y2="23"/>
+                                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                                        </svg>
+                                    </div>
+                                    <div class="stat-content">
+                                        <h3 class="stat-label">Total Sales</h3>
+                                        <output class="stat-value" id="totalSales">₱0.00</output>
+                                    </div>
+                                </article>
+                                
+                                <article class="stat-card stat-orders">
+                                    <div class="stat-icon" aria-hidden="true">
+                                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="3" y="3" width="7" height="7"/>
+                                            <rect x="14" y="3" width="7" height="7"/>
+                                            <rect x="14" y="14" width="7" height="7"/>
+                                            <rect x="3" y="14" width="7" height="7"/>
+                                        </svg>
+                                    </div>
+                                    <div class="stat-content">
+                                        <h3 class="stat-label">Number of Orders</h3>
+                                        <output class="stat-value" id="totalOrders">0</output>
+                                    </div>
+                                </article>
+
+                                <article class="stat-card stat-average">
+                                    <div class="stat-icon" aria-hidden="true">
+                                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                                        </svg>
+                                    </div>
+                                    <div class="stat-content">
+                                        <h3 class="stat-label">Average Order</h3>
+                                        <output class="stat-value" id="averageOrder">₱0.00</output>
+                                    </div>
+                                </article>
+                            </div>
+
+                            <figure class="sales-chart-container">
+                                <figcaption>
+                                    <h3 class="chart-title">Sales Timeline</h3>
+                                </figcaption>
+                                <canvas id="salesChart" role="img" aria-label="Sales chart showing hourly revenue"></canvas>
+                            </figure>
+
+                            <section class="order-history">
+                                <h3 class="history-title">Recent Orders</h3>
+                                <div class="history-list" id="orderHistory" aria-live="polite" aria-label="Recent order history">
+                                    <div class="empty-history">
+                                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                                            <path d="M12 8v4l3 3"/>
+                                            <circle cx="12" cy="12" r="10"/>
+                                        </svg>
+                                        <p>No orders yet today</p>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </section>
+                </aside>
             </div>
         </main>
     </body>
