@@ -12,13 +12,14 @@ const state = {
         totalSales: 0,
         orderCount: 0,
         salesByHour: new Array(24).fill(0)
-    }
+    },
+    currentView: 'menu'
 };
 
 let salesChart = null;
 
 // ===================================
-// Initialization - Member 10 (Dela Torre)
+// Initialization
 // ===================================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -33,10 +34,76 @@ function initializeApp() {
     renderMenu();
     renderCurrentOrder();
     updateSalesDisplay();
+    updateOrderBadge();
 }
 
 // ===================================
-// Date Display Member 10 (Dela Torre)
+// View Switching
+// ===================================
+
+function switchView(viewName) {
+    // Update state
+    state.currentView = viewName;
+    
+    // Hide all views
+    document.querySelectorAll('.content-view').forEach(view => {
+        view.classList.remove('active');
+    });
+    
+    // Show selected view
+    const viewMap = {
+        'menu': 'menuView',
+        'orders': 'ordersView',
+        'sales': 'salesView'
+    };
+    
+    const selectedView = document.getElementById(viewMap[viewName]);
+    if (selectedView) {
+        selectedView.classList.add('active');
+    }
+    
+    // Update navigation buttons
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    const activeNav = document.querySelector(`[data-view="${viewName}"]`);
+    if (activeNav) {
+        activeNav.classList.add('active');
+    }
+    
+    // Update chart if switching to sales view
+    if (viewName === 'sales' && salesChart) {
+        setTimeout(() => {
+            salesChart.resize();
+            salesChart.update();
+        }, 100);
+    }
+}
+
+// Export switchView to global scope
+window.switchView = switchView;
+
+// ===================================
+// Order Badge Update
+// ===================================
+
+function updateOrderBadge() {
+    const badge = document.getElementById('orderBadge');
+    const itemCount = state.currentOrder.reduce((sum, item) => sum + item.quantity, 0);
+    
+    if (badge) {
+        badge.textContent = itemCount;
+        if (itemCount > 0) {
+            badge.style.display = 'inline-block';
+        } else {
+            badge.style.display = 'none';
+        }
+    }
+}
+
+// ===================================
+// Date Display
 // ===================================
 
 function updateDate() {
@@ -56,7 +123,7 @@ function updateDate() {
 }
 
 // ===================================
-// Menu Management Member 10 (Dela Torre)
+// Menu Management (Student 2)
 // ===================================
 
 function loadMenu() {
@@ -76,7 +143,7 @@ function loadMenu() {
             price: 95.00,
             description: 'Sour pork soup with tamarind and vegetables',
             category: 'Main Dish',
-            image: 'https://th.bing.com/th/id/R.fee8e28d5061de477d251fc528f77296?rik=yokZ6YWB56PK4Q&riu=http%3a%2f%2fcdn.shopify.com%2fs%2ffiles%2f1%2f0083%2f7238%2f7958%2fproducts%2fSinigang_na_Baboy.jpg%3fv%3d1623318122&ehk=4wMJ0ajkz%2fvgOY7%2fUccy0k8Nv8f6Wtg7yUsmp8vk9ws%3d&risl=&pid=ImgRaw&r=0'
+            image: 'https://speedyrecipe.com/wp-content/uploads/2022/09/how-to-cook-sinigang-na-baboy.jpg'
         },
         {
             id: 3,
@@ -140,7 +207,7 @@ function loadMenu() {
             price: 40.00,
             description: 'Banana spring rolls with jackfruit (3 pieces)',
             category: 'Dessert',
-            image: 'https://recipewise.net/recipe/turon-sweet-fried-banana-spring-rolls/9bd5a11fe46214cd11ff0fd00cd89390.jpg'
+            image: 'https://i0.wp.com/aeslinbakes.com/wp-content/uploads/2020/08/Turon-3-scaled.jpg?w=2048&ssl=1'
         },
         {
             id: 11,
@@ -152,17 +219,19 @@ function loadMenu() {
         },
         {
             id: 12,
-            name: 'Softdrinks (Coca Cola, Sprite, Royal, etc.)',
+            name: 'Softdrinks (Coca-Cola, Sprite, Royal)',
             price: 25.00,
             description: 'Assorted soft drinks',
             category: 'Beverage',
-            image: 'https://tse2.mm.bing.net/th/id/OIP.K0w3s-ZhkiIdvl29zbfpoAHaFC?w=1200&h=816&rs=1&pid=ImgDetMain&o=7&rm=3'
+            image: 'https://thumbs.dreamstime.com/b/bottles-assorted-global-soft-drinks-poznan-poland-jan-drink-market-dominated-brands-few-multinational-companies-founded-84848646.jpg'
         }
     ];
 }
 
 function renderMenu() {
     const menuList = document.getElementById('menuList');
+    if (!menuList) return;
+    
     menuList.innerHTML = '';
     
     state.menu.forEach(item => {
@@ -198,7 +267,7 @@ function renderMenu() {
 }
 
 // ===================================
-// Order Management Member 11 (Layog)
+// Order Management (Student 3)
 // ===================================
 
 function addToOrder(itemId) {
@@ -216,12 +285,14 @@ function addToOrder(itemId) {
     
     renderCurrentOrder();
     highlightMenuItem(itemId);
+    updateOrderBadge();
 }
 
 function removeFromOrder(itemId) {
     state.currentOrder = state.currentOrder.filter(item => item.id !== itemId);
     renderCurrentOrder();
     unhighlightMenuItem(itemId);
+    updateOrderBadge();
 }
 
 function updateQuantity(itemId, change) {
@@ -232,6 +303,7 @@ function updateQuantity(itemId, change) {
             removeFromOrder(itemId);
         } else {
             renderCurrentOrder();
+            updateOrderBadge();
         }
     }
 }
@@ -317,6 +389,7 @@ function clearOrder() {
         item.classList.remove('selected');
     });
     renderCurrentOrder();
+    updateOrderBadge();
 }
 
 function completeOrder() {
@@ -339,7 +412,7 @@ function completeOrder() {
     
     state.orders.push(order);
     
-    // Update sales data
+    // Update sales data (Student 4)
     state.salesData.totalSales += totalPrice;
     state.salesData.orderCount += 1;
     
@@ -359,10 +432,16 @@ function completeOrder() {
     updateSalesDisplay();
     updateChart();
     renderOrderHistory();
+    updateOrderBadge();
+    
+    // Switch to sales view after a delay
+    setTimeout(() => {
+        switchView('sales');
+    }, 2500);
 }
 
 // ===================================
-// Daily Sales Summary - Member 11 (Layog)
+// Daily Sales Summary (Student 4)
 // ===================================
 
 function updateSalesDisplay() {
@@ -509,7 +588,7 @@ function updateChart() {
 }
 
 // ===================================
-// Completion Animation - Member 12 (Rosario)
+// Completion Animation
 // ===================================
 
 function showCompletionAnimation(order) {
@@ -527,7 +606,7 @@ function showCompletionAnimation(order) {
 }
 
 // ===================================
-// Local Storage Management - Member 12 (Rosario)
+// Local Storage Management
 // ===================================
 
 function saveToLocalStorage() {
@@ -577,7 +656,7 @@ function resetApp() {
 }
 
 // ===================================
-// Utility Functions - Member 12 (Rosario)
+// Utility Functions
 // ===================================
 
 function formatCurrency(amount) {

@@ -1,10 +1,9 @@
 /* ===================================
    Karenderia Web App Styles
    Color Palette: Green Theme
-   Designer: Student 6 - Aldep, Student 7 - Quitorio, Student 8 - Datinguinoo, Student 9 - Mateo
+   Designer: Student 5 - UI & Documentation
    =================================== */
 
-/* Implementation of Color Variables (Student 6) */
 :root {
     /* Green Color Palette */
     --primary-green: #0d7a4f;
@@ -46,10 +45,13 @@
     --transition-fast: 0.15s ease;
     --transition-base: 0.3s ease;
     --transition-slow: 0.5s ease;
+    
+    /* Layout */
+    --sidebar-width: 280px;
 }
 
 /* ===================================
-   Base Styles (Student 6)
+   Base Styles
    =================================== */
 
 * {
@@ -65,7 +67,6 @@ body {
     color: var(--gray-800);
     line-height: 1.6;
     min-height: 100vh;
-    position: relative;
     overflow-x: hidden;
 }
 
@@ -84,7 +85,7 @@ body::before {
 }
 
 /* ===================================
-   Header Styles (Student 7)
+   Header Styles
    =================================== */
 
 .main-header {
@@ -112,18 +113,6 @@ body::before {
     display: flex;
     align-items: center;
     gap: 1rem;
-    animation: fadeInLeft 0.8s ease;
-}
-
-@keyframes fadeInLeft {
-    from {
-        transform: translateX(-30px);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
 }
 
 .logo-icon {
@@ -133,12 +122,8 @@ body::before {
 }
 
 @keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
 }
 
 .logo-text {
@@ -157,16 +142,6 @@ body::before {
     font-weight: 500;
     color: var(--accent-lime);
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-    animation: fadeIn 1s ease;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
 }
 
 .btn-reset {
@@ -193,11 +168,6 @@ body::before {
     box-shadow: 0 6px 20px rgba(134, 239, 172, 0.4);
 }
 
-.btn-reset:focus-visible {
-    outline: 3px solid var(--white);
-    outline-offset: 2px;
-}
-
 .btn-reset svg {
     transition: transform var(--transition-base);
 }
@@ -207,14 +177,133 @@ body::before {
 }
 
 /* ===================================
-   Main Container (Student 7)
+   App Wrapper & Sidebar
    =================================== */
 
-.main-container {
-    padding: 2rem 1rem;
+.app-wrapper {
+    display: flex;
+    min-height: calc(100vh - 88px);
     position: relative;
     z-index: 1;
-    animation: fadeInUp 0.8s ease;
+}
+
+/* Sidebar */
+.sidebar {
+    width: var(--sidebar-width);
+    background: var(--white);
+    box-shadow: var(--shadow-lg);
+    position: sticky;
+    top: 88px;
+    height: calc(100vh - 88px);
+    overflow-y: auto;
+    flex-shrink: 0;
+    animation: slideInLeft 0.6s ease;
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.sidebar-nav {
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    background: transparent;
+    border: none;
+    border-left: 4px solid transparent;
+    color: var(--gray-700);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    text-align: left;
+    width: 100%;
+    position: relative;
+}
+
+.nav-item svg {
+    flex-shrink: 0;
+    transition: transform var(--transition-base);
+}
+
+.nav-item span:first-of-type {
+    flex: 1;
+}
+
+.nav-item:hover {
+    background: var(--bg-green-subtle);
+    color: var(--primary-green);
+    border-left-color: var(--accent-lime);
+}
+
+.nav-item:hover svg {
+    transform: translateX(5px);
+}
+
+.nav-item.active {
+    background: linear-gradient(90deg, var(--bg-green-light) 0%, transparent 100%);
+    color: var(--primary-green-dark);
+    border-left-color: var(--primary-green);
+    font-weight: 600;
+}
+
+.nav-item.active svg {
+    color: var(--primary-green);
+}
+
+/* Badge */
+.badge {
+    background: var(--danger);
+    color: var(--white);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.5rem;
+    border-radius: 10px;
+    min-width: 24px;
+    text-align: center;
+    display: none;
+}
+
+/* ===================================
+   Main Content
+   =================================== */
+
+.main-content {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Content Views */
+.content-view {
+    display: none;
+    animation: fadeInUp 0.6s ease;
+}
+
+.content-view.active {
+    display: block;
 }
 
 @keyframes fadeInUp {
@@ -228,97 +317,49 @@ body::before {
     }
 }
 
-/* ===================================
-   Card Styles (Student 7)
-   =================================== */
-
-.card {
-    background: var(--white);
-    border: none;
-    border-radius: 20px;
-    box-shadow: var(--shadow-lg);
-    overflow: hidden;
-    transition: all var(--transition-base);
-    height: 100%;
-    animation: scaleIn 0.6s ease;
+/* View Header */
+.view-header {
+    margin-bottom: 2rem;
 }
 
-@keyframes scaleIn {
-    from {
-        transform: scale(0.9);
-        opacity: 0;
-    }
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-.card:hover {
-    box-shadow: var(--shadow-xl);
-    transform: translateY(-5px);
-}
-
-.card-header {
-    background: linear-gradient(135deg, var(--primary-green-light) 0%, var(--primary-green) 100%);
-    border-bottom: 3px solid var(--accent-green);
-    padding: 1.5rem;
-}
-
-.section-title {
+.view-title {
     font-family: var(--font-display);
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 700;
-    color: var(--white);
-    margin: 0;
+    color: var(--gray-900);
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.5rem;
 }
 
-.section-title svg {
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+.view-title svg {
+    color: var(--primary-green);
 }
 
-.card-body {
-    padding: 1.5rem;
-    max-height: calc(100vh - 250px);
-    overflow-y: auto;
+.view-description {
+    font-size: 1rem;
+    color: var(--gray-600);
+    margin: 0;
 }
-
-.card-body::-webkit-scrollbar {
-    width: 8px;
-}
-
-.card-body::-webkit-scrollbar-track {
-    background: var(--gray-100);
-    border-radius: 10px;
-}
-
-.card-body::-webkit-scrollbar-thumb {
-    background: var(--primary-green-light);
-    border-radius: 10px;
-}
-
-.card-body::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-green);
-}
-
 
 /* ===================================
-   Menu Management (Student 8)
+   Menu Management (Student 2)
    =================================== */
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
 
 .menu-item {
     background: var(--white);
     border: 2px solid var(--gray-200);
     border-radius: 15px;
     padding: 0;
-    margin-bottom: 1rem;
     cursor: pointer;
     transition: all var(--transition-base);
-    position: relative;
     overflow: hidden;
     width: 100%;
     text-align: left;
@@ -326,25 +367,7 @@ body::before {
     display: flex;
     flex-direction: column;
     box-shadow: var(--shadow-md);
-}
-
-.menu-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(13, 122, 79, 0.1) 0%, transparent 100%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.menu-item:hover::before,
-.menu-item:focus::before {
-    opacity: 1;
+    position: relative;
 }
 
 .menu-item:hover,
@@ -353,11 +376,6 @@ body::before {
     box-shadow: var(--shadow-xl), 0 0 0 3px rgba(13, 122, 79, 0.1);
     transform: translateY(-5px);
     outline: none;
-}
-
-.menu-item:focus-visible {
-    outline: 3px solid var(--accent-green);
-    outline-offset: 2px;
 }
 
 .menu-item.selected {
@@ -387,91 +405,49 @@ body::before {
 }
 
 @keyframes checkmarkPop {
-    0% {
-        transform: scale(0);
-    }
-    50% {
-        transform: scale(1.2);
-    }
-    100% {
-        transform: scale(1);
-    }
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
 }
 
-/* Image Container */
 .menu-item-image-container {
     position: relative;
     width: 100%;
-    height: 180px;
+    height: 200px;
     overflow: hidden;
     border-radius: 13px 13px 0 0;
     background: linear-gradient(135deg, var(--bg-green-subtle) 0%, var(--bg-green-light) 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Loading animation before image loads */
-.menu-item-image-container::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 40px;
-    height: 40px;
-    border: 4px solid var(--gray-200);
-    border-top-color: var(--primary-green);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    z-index: 0;
-}
-
-@keyframes spin {
-    to {
-        transform: translate(-50%, -50%) rotate(360deg);
-    }
 }
 
 .menu-item-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
-    transition: transform 0.5s ease, opacity 0.3s ease;
-    display: block;
-    background: var(--gray-100);
-    position: relative;
-    z-index: 2;
+    transition: transform 0.5s ease;
 }
 
-.menu-item-image:not([src]),
-.menu-item-image[src=""] {
-    opacity: 0;
-}
-
-.menu-item:hover .menu-item-image,
-.menu-item:focus .menu-item-image {
+.menu-item:hover .menu-item-image {
     transform: scale(1.1);
 }
 
-.menu-item-image-container::after {
-    content: '';
+.menu-item-category {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 50%;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
-    pointer-events: none;
-    z-index: 1;
+    top: 10px;
+    left: 10px;
+    background: var(--primary-green);
+    color: var(--white);
+    padding: 0.35rem 0.85rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(13, 122, 79, 0.3);
+    z-index: 5;
 }
 
-/* Content Area */
 .menu-item-content {
     padding: 1rem;
-    position: relative;
-    z-index: 2;
 }
 
 .menu-item-header {
@@ -501,71 +477,50 @@ body::before {
     line-height: 1.5;
 }
 
-.menu-item-category {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: var(--primary-green);
-    color: var(--white);
-    padding: 0.35rem 0.85rem;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 2px 8px rgba(13, 122, 79, 0.3);
-    z-index: 10;
-    backdrop-filter: blur(10px);
-}
-
 /* ===================================
-   Order Management (Student 8)
+   Order Management (Student 3)
    =================================== */
+
+.order-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
 
 .order-empty-state {
     text-align: center;
-    padding: 3rem 1rem;
+    padding: 4rem 2rem;
     color: var(--gray-600);
 }
 
 .order-empty-state svg {
     color: var(--gray-300);
-    margin-bottom: 1rem;
-    animation: float 3s ease-in-out infinite;
+    margin-bottom: 1.5rem;
 }
 
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
-}
-
-.order-empty-state p {
-    font-size: 1.1rem;
+.order-empty-state h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
     font-weight: 600;
     color: var(--gray-700);
     margin-bottom: 0.5rem;
 }
 
-.order-empty-state small {
+.order-empty-state p {
     color: var(--gray-500);
 }
 
 .order-items {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 0 0 2rem 0;
 }
 
 .order-item {
     background: var(--bg-green-subtle);
     border: 2px solid var(--accent-lime);
     border-radius: 12px;
-    padding: 1rem;
-    margin-bottom: 0.75rem;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -619,8 +574,8 @@ body::before {
     background: var(--primary-green);
     color: var(--white);
     border: none;
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     border-radius: 8px;
     cursor: pointer;
     display: flex;
@@ -630,19 +585,13 @@ body::before {
     transition: all var(--transition-fast);
 }
 
-.qty-btn:hover,
-.qty-btn:focus {
+.qty-btn:hover {
     background: var(--primary-green-dark);
     transform: scale(1.1);
 }
 
-.qty-btn:focus-visible {
-    outline: 2px solid var(--accent-green);
-    outline-offset: 2px;
-}
-
 .qty-display {
-    min-width: 30px;
+    min-width: 32px;
     text-align: center;
     font-weight: 600;
     color: var(--gray-900);
@@ -652,8 +601,8 @@ body::before {
     background: var(--danger);
     color: var(--white);
     border: none;
-    width: 35px;
-    height: 35px;
+    width: 36px;
+    height: 36px;
     border-radius: 8px;
     cursor: pointer;
     display: flex;
@@ -662,30 +611,37 @@ body::before {
     transition: all var(--transition-fast);
 }
 
-.btn-remove:hover,
-.btn-remove:focus {
+.btn-remove:hover {
     background: #dc2626;
     transform: scale(1.1);
 }
 
-.btn-remove:focus-visible {
-    outline: 2px solid var(--danger);
-    outline-offset: 2px;
+/* Order Summary Card */
+.order-summary-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow-lg);
+    border: 2px solid var(--accent-green);
 }
 
-.order-summary {
-    background: linear-gradient(135deg, var(--bg-green-light) 0%, var(--bg-green-subtle) 100%);
-    border-radius: 15px;
-    padding: 1.5rem;
-    margin-top: 1.5rem;
-    border: 2px solid var(--accent-green);
+.summary-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 1.5rem;
+}
+
+.summary-details {
+    margin-bottom: 1.5rem;
 }
 
 .summary-row {
     display: flex;
     justify-content: space-between;
     margin-bottom: 0.75rem;
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 
 .summary-label {
@@ -702,7 +658,7 @@ body::before {
     border-top: 2px solid var(--accent-green);
     padding-top: 0.75rem;
     margin-top: 0.75rem;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
 }
 
 .total-row .summary-value {
@@ -714,13 +670,12 @@ body::before {
 .order-actions {
     display: flex;
     gap: 1rem;
-    margin-top: 1.5rem;
 }
 
 .btn-complete,
 .btn-clear {
     flex: 1;
-    padding: 1rem;
+    padding: 1rem 1.5rem;
     border: none;
     border-radius: 12px;
     font-weight: 600;
@@ -729,6 +684,10 @@ body::before {
     transition: all var(--transition-base);
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
 .btn-complete {
@@ -737,15 +696,9 @@ body::before {
     box-shadow: 0 4px 12px rgba(13, 122, 79, 0.3);
 }
 
-.btn-complete:hover,
-.btn-complete:focus {
+.btn-complete:hover {
     box-shadow: 0 6px 20px rgba(13, 122, 79, 0.4);
     transform: translateY(-2px);
-}
-
-.btn-complete:focus-visible {
-    outline: 3px solid var(--accent-green);
-    outline-offset: 2px;
 }
 
 .btn-clear {
@@ -754,25 +707,24 @@ body::before {
     border: 2px solid var(--gray-300);
 }
 
-.btn-clear:hover,
-.btn-clear:focus {
+.btn-clear:hover {
     background: var(--gray-100);
     border-color: var(--gray-400);
 }
 
-.btn-clear:focus-visible {
-    outline: 3px solid var(--gray-400);
-    outline-offset: 2px;
-}
-
 /* ===================================
-   Daily Sales Summary (Student 8)
+   Daily Sales Summary (Student 4)
    =================================== */
 
+.sales-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 .sales-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
     margin-bottom: 2rem;
 }
 
@@ -785,30 +737,6 @@ body::before {
     gap: 1.25rem;
     border: 2px solid var(--gray-200);
     transition: all var(--transition-base);
-    animation: fadeInScale 0.6s ease backwards;
-}
-
-.stat-card:nth-child(1) {
-    animation-delay: 0.1s;
-}
-
-.stat-card:nth-child(2) {
-    animation-delay: 0.2s;
-}
-
-.stat-card:nth-child(3) {
-    animation-delay: 0.3s;
-}
-
-@keyframes fadeInScale {
-    from {
-        transform: scale(0.8);
-        opacity: 0;
-    }
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
 }
 
 .stat-card:hover {
@@ -820,13 +748,14 @@ body::before {
 .stat-icon {
     background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-light) 100%);
     color: var(--white);
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     border-radius: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 12px rgba(13, 122, 79, 0.25);
+    flex-shrink: 0;
 }
 
 .stat-content {
@@ -842,44 +771,54 @@ body::before {
 
 .stat-value {
     font-family: var(--font-display);
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 700;
     color: var(--primary-green-dark);
 }
 
-.sales-chart-container {
+/* Chart Card */
+.chart-card {
     background: var(--white);
     border: 2px solid var(--gray-200);
-    border-radius: 15px;
-    padding: 1.5rem;
+    border-radius: 20px;
+    padding: 2rem;
     margin-bottom: 2rem;
+    box-shadow: var(--shadow-lg);
 }
 
 .chart-title {
     font-family: var(--font-display);
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 600;
     color: var(--gray-900);
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
-.order-history {
-    background: var(--bg-green-subtle);
-    border-radius: 15px;
-    padding: 1.5rem;
+.chart-wrapper {
+    position: relative;
+    height: 400px;
+}
+
+/* History Card */
+.history-card {
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: var(--shadow-lg);
 }
 
 .history-title {
     font-family: var(--font-display);
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 600;
     color: var(--gray-900);
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .empty-history {
     text-align: center;
-    padding: 2rem 1rem;
+    padding: 3rem 1rem;
     color: var(--gray-500);
 }
 
@@ -889,23 +828,11 @@ body::before {
 }
 
 .history-item {
-    background: var(--white);
+    background: var(--bg-green-subtle);
     border: 2px solid var(--accent-lime);
     border-radius: 12px;
-    padding: 1rem;
-    margin-bottom: 0.75rem;
-    animation: slideInLeft 0.4s ease;
-}
-
-@keyframes slideInLeft {
-    from {
-        transform: translateX(-30px);
-        opacity: 0;
-    }
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
+    padding: 1.25rem;
+    margin-bottom: 1rem;
 }
 
 .history-item-header {
@@ -919,21 +846,22 @@ body::before {
     font-weight: 700;
     color: var(--primary-green);
     font-family: var(--font-display);
+    font-size: 1.1rem;
 }
 
 .history-time {
-    font-size: 0.85rem;
+    font-size: 0.875rem;
     color: var(--gray-600);
 }
 
 .history-total {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     font-weight: 700;
     color: var(--primary-green-dark);
 }
 
 /* ===================================
-   Completion Modal (Student 9)
+   Completion Modal
    =================================== */
 
 .modal-overlay {
@@ -948,7 +876,6 @@ body::before {
     align-items: center;
     justify-content: center;
     z-index: 2000;
-    animation: fadeIn 0.3s ease;
 }
 
 .modal-overlay.active {
@@ -988,16 +915,6 @@ body::before {
 
 .success-checkmark svg {
     color: var(--primary-green);
-    animation: drawCheck 0.8s ease;
-}
-
-@keyframes drawCheck {
-    0% {
-        stroke-dasharray: 0, 200;
-    }
-    100% {
-        stroke-dasharray: 200, 0;
-    }
 }
 
 .completion-animation h3 {
@@ -1014,24 +931,52 @@ body::before {
 }
 
 /* ===================================
-   Responsive Design (Student 9)
+   Responsive Design
    =================================== */
 
 @media (max-width: 991px) {
-    .card {
-        margin-bottom: 1.5rem;
+    .app-wrapper {
+        flex-direction: column;
     }
     
-    .logo-text {
-        font-size: 1.5rem;
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        top: 0;
     }
     
-    .stat-value {
-        font-size: 1.5rem;
+    .sidebar-nav {
+        padding: 1rem 0;
+        flex-direction: row;
+        overflow-x: auto;
     }
     
-    .menu-item-image-container {
-        height: 160px;
+    .nav-item {
+        flex-direction: column;
+        padding: 1rem;
+        min-width: 120px;
+        text-align: center;
+        border-left: none;
+        border-bottom: 4px solid transparent;
+    }
+    
+    .nav-item.active {
+        border-bottom-color: var(--primary-green);
+        border-left-color: transparent;
+    }
+    
+    .nav-item span:first-of-type {
+        font-size: 0.85rem;
+    }
+    
+    .menu-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1rem;
+    }
+    
+    .chart-wrapper {
+        height: 300px;
     }
 }
 
@@ -1041,11 +986,7 @@ body::before {
     }
     
     .logo-text {
-        font-size: 1.3rem;
-    }
-    
-    .date-display {
-        font-size: 0.9rem;
+        font-size: 1.5rem;
     }
     
     .btn-reset {
@@ -1053,64 +994,36 @@ body::before {
         font-size: 0.85rem;
     }
     
-    .main-container {
-        padding: 1rem 0.5rem;
-    }
-    
-    .section-title {
-        font-size: 1.2rem;
-    }
-    
-    .stat-card {
+    .main-content {
         padding: 1rem;
     }
     
-    .stat-icon {
-        width: 50px;
-        height: 50px;
+    .view-title {
+        font-size: 1.5rem;
+    }
+    
+    .menu-grid {
+        grid-template-columns: 1fr;
     }
     
     .menu-item-image-container {
-        height: 140px;
+        height: 180px;
     }
     
-    .menu-item-name {
-        font-size: 1.05rem;
+    .sales-stats {
+        grid-template-columns: 1fr;
     }
     
-    .menu-item-price {
-        font-size: 1.2rem;
-    }
-    
-    .menu-item-description {
-        font-size: 0.8rem;
-    }
-    
-    .menu-item-category {
-        font-size: 0.7rem;
-        padding: 0.3rem 0.7rem;
-    }
-    
-    .menu-item-content {
-        padding: 0.85rem;
+    .chart-wrapper {
+        height: 250px;
     }
 }
 
-/* ===================================
-   Print Styles (Student 9)
-   =================================== */
-
 @media print {
     .main-header,
-    .btn-reset,
-    .menu-card,
-    .order-card {
+    .sidebar,
+    .btn-reset {
         display: none;
-    }
-    
-    .sales-card {
-        box-shadow: none;
-        border: 1px solid var(--gray-300);
     }
     
     body {
