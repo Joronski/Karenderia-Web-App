@@ -1,9 +1,10 @@
 /* ===================================
    Karenderia Web App Styles
    Color Palette: Green Theme
-   Designer: Student 5 - UI & Documentation
+   Designer: Student 6 - Aldep, Student 7 - Quitorio, Student 8 - Datinguinoo, Student 9 - Mateo
    =================================== */
 
+/* Implementation of Color Variables (Student 6) */
 :root {
     /* Green Color Palette */
     --primary-green: #0d7a4f;
@@ -48,7 +49,7 @@
 }
 
 /* ===================================
-   Base Styles
+   Base Styles (Student 6)
    =================================== */
 
 * {
@@ -83,7 +84,7 @@ body::before {
 }
 
 /* ===================================
-   Header Styles
+   Header Styles (Student 7)
    =================================== */
 
 .main-header {
@@ -206,7 +207,7 @@ body::before {
 }
 
 /* ===================================
-   Main Container
+   Main Container (Student 7)
    =================================== */
 
 .main-container {
@@ -228,7 +229,7 @@ body::before {
 }
 
 /* ===================================
-   Card Styles
+   Card Styles (Student 7)
    =================================== */
 
 .card {
@@ -304,15 +305,16 @@ body::before {
     background: var(--primary-green);
 }
 
+
 /* ===================================
-   Menu Management (Student 2)
+   Menu Management (Student 8)
    =================================== */
 
 .menu-item {
-    background: linear-gradient(135deg, var(--white) 0%, var(--bg-green-subtle) 100%);
+    background: var(--white);
     border: 2px solid var(--gray-200);
     border-radius: 15px;
-    padding: 1.25rem;
+    padding: 0;
     margin-bottom: 1rem;
     cursor: pointer;
     transition: all var(--transition-base);
@@ -321,29 +323,35 @@ body::before {
     width: 100%;
     text-align: left;
     font-family: var(--font-body);
-    display: block;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-md);
 }
 
 .menu-item::before {
     content: '';
     position: absolute;
     top: 0;
-    left: -100%;
+    left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(13, 122, 79, 0.1), transparent);
-    transition: left 0.5s ease;
+    background: linear-gradient(135deg, rgba(13, 122, 79, 0.1) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 1;
 }
 
-.menu-item:hover::before {
-    left: 100%;
+.menu-item:hover::before,
+.menu-item:focus::before {
+    opacity: 1;
 }
 
 .menu-item:hover,
 .menu-item:focus {
     border-color: var(--primary-green);
-    box-shadow: 0 8px 16px rgba(13, 122, 79, 0.15);
-    transform: translateX(5px);
+    box-shadow: var(--shadow-xl), 0 0 0 3px rgba(13, 122, 79, 0.1);
+    transform: translateY(-5px);
     outline: none;
 }
 
@@ -353,9 +361,117 @@ body::before {
 }
 
 .menu-item.selected {
-    background: linear-gradient(135deg, var(--bg-green-light) 0%, var(--bg-green-subtle) 100%);
     border-color: var(--accent-green);
-    box-shadow: 0 4px 12px rgba(45, 212, 161, 0.25);
+    box-shadow: 0 8px 24px rgba(45, 212, 161, 0.3);
+    background: linear-gradient(135deg, var(--bg-green-subtle) 0%, var(--white) 100%);
+}
+
+.menu-item.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background: var(--accent-green);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(45, 212, 161, 0.4);
+    animation: checkmarkPop 0.3s ease;
+}
+
+@keyframes checkmarkPop {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Image Container */
+.menu-item-image-container {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    border-radius: 13px 13px 0 0;
+    background: linear-gradient(135deg, var(--bg-green-subtle) 0%, var(--bg-green-light) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Loading animation before image loads */
+.menu-item-image-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--gray-200);
+    border-top-color: var(--primary-green);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 0;
+}
+
+@keyframes spin {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+.menu-item-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.5s ease, opacity 0.3s ease;
+    display: block;
+    background: var(--gray-100);
+    position: relative;
+    z-index: 2;
+}
+
+.menu-item-image:not([src]),
+.menu-item-image[src=""] {
+    opacity: 0;
+}
+
+.menu-item:hover .menu-item-image,
+.menu-item:focus .menu-item-image {
+    transform: scale(1.1);
+}
+
+.menu-item-image-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Content Area */
+.menu-item-content {
+    padding: 1rem;
+    position: relative;
+    z-index: 2;
 }
 
 .menu-item-header {
@@ -373,30 +489,37 @@ body::before {
 }
 
 .menu-item-price {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: var(--primary-green);
     font-family: var(--font-display);
 }
 
 .menu-item-description {
-    font-size: 0.9rem;
+    font-size: 0.875rem;
     color: var(--gray-600);
-    margin-bottom: 0.75rem;
+    line-height: 1.5;
 }
 
 .menu-item-category {
-    display: inline-block;
+    position: absolute;
+    top: 10px;
+    left: 10px;
     background: var(--primary-green);
     color: var(--white);
-    padding: 0.25rem 0.75rem;
+    padding: 0.35rem 0.85rem;
     border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 500;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(13, 122, 79, 0.3);
+    z-index: 10;
+    backdrop-filter: blur(10px);
 }
 
 /* ===================================
-   Order Management (Student 3)
+   Order Management (Student 8)
    =================================== */
 
 .order-empty-state {
@@ -643,7 +766,7 @@ body::before {
 }
 
 /* ===================================
-   Daily Sales Summary (Student 4)
+   Daily Sales Summary (Student 8)
    =================================== */
 
 .sales-stats {
@@ -810,7 +933,7 @@ body::before {
 }
 
 /* ===================================
-   Completion Modal
+   Completion Modal (Student 9)
    =================================== */
 
 .modal-overlay {
@@ -891,7 +1014,7 @@ body::before {
 }
 
 /* ===================================
-   Responsive Design
+   Responsive Design (Student 9)
    =================================== */
 
 @media (max-width: 991px) {
@@ -905,6 +1028,10 @@ body::before {
     
     .stat-value {
         font-size: 1.5rem;
+    }
+    
+    .menu-item-image-container {
+        height: 160px;
     }
 }
 
@@ -942,10 +1069,35 @@ body::before {
         width: 50px;
         height: 50px;
     }
+    
+    .menu-item-image-container {
+        height: 140px;
+    }
+    
+    .menu-item-name {
+        font-size: 1.05rem;
+    }
+    
+    .menu-item-price {
+        font-size: 1.2rem;
+    }
+    
+    .menu-item-description {
+        font-size: 0.8rem;
+    }
+    
+    .menu-item-category {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.7rem;
+    }
+    
+    .menu-item-content {
+        padding: 0.85rem;
+    }
 }
 
 /* ===================================
-   Print Styles
+   Print Styles (Student 9)
    =================================== */
 
 @media print {
