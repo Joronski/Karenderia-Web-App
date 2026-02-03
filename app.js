@@ -503,3 +503,94 @@ function updateChart() {
         salesChart.update();
     }
 }
+
+// ===================================
+// Completion Animation - Student 12 (Rosario)
+// ===================================
+
+function showCompletionAnimation(order) {
+    const modal = document.getElementById('completionModal');
+    const message = document.getElementById('completionMessage');
+    
+    const itemCount = order.items.reduce((sum, item) => sum + item.quantity, 0);
+    message.textContent = `Order #${order.id} • ${itemCount} items • ₱${order.total.toFixed(2)}`;
+    
+    modal.classList.add('active');
+    
+    setTimeout(() => {
+        modal.classList.remove('active');
+    }, 2500);
+}
+
+// ===================================
+// Local Storage Management - Student 12 (Rosario)
+// ===================================
+
+function saveToLocalStorage() {
+    localStorage.setItem('karenderia_orders', JSON.stringify(state.orders));
+    localStorage.setItem('karenderia_sales', JSON.stringify(state.salesData));
+}
+
+function loadFromLocalStorage() {
+    const savedOrders = localStorage.getItem('karenderia_orders');
+    const savedSales = localStorage.getItem('karenderia_sales');
+    
+    if (savedOrders) {
+        state.orders = JSON.parse(savedOrders);
+        // Convert timestamp strings back to Date objects
+        state.orders.forEach(order => {
+            order.timestamp = new Date(order.timestamp);
+        });
+    }
+    
+    if (savedSales) {
+        state.salesData = JSON.parse(savedSales);
+    }
+    
+    renderOrderHistory();
+}
+
+function resetApp() {
+    if (confirm('Are you sure you want to reset all data for today? This action cannot be undone.')) {
+        state.orders = [];
+        state.currentOrder = [];
+        state.salesData = {
+            totalSales: 0,
+            orderCount: 0,
+            salesByHour: new Array(24).fill(0)
+        };
+        
+        localStorage.removeItem('karenderia_orders');
+        localStorage.removeItem('karenderia_sales');
+        
+        clearOrder();
+        updateSalesDisplay();
+        renderOrderHistory();
+        updateChart();
+        
+        alert('All data has been reset successfully!');
+    }
+}
+
+// ===================================
+// Utility Functions - Student 12 (Rosario)
+// ===================================
+
+function formatCurrency(amount) {
+    return `₱${amount.toFixed(2)}`;
+}
+
+function getCurrentTime() {
+    return new Date().toLocaleTimeString('en-US', { 
+        hour: '2-digit', 
+        minute: '2-digit' 
+    });
+}
+
+// Export functions to global scope
+window.addToOrder = addToOrder;
+window.removeFromOrder = removeFromOrder;
+window.updateQuantity = updateQuantity;
+window.clearOrder = clearOrder;
+window.completeOrder = completeOrder;
+window.resetApp = resetApp;
