@@ -3,8 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Karenderia - A web application for managing daily operations of a small local eatery">
+        <meta name="keywords" content="karenderia, restaurant management, order management, sales tracking">
+        <meta name="author" content="Karenderia Team">
         <title>Karenderia - Daily Operations Manager</title>
-
+        
         <!-- Bootstrap CDN -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         
@@ -12,7 +15,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+        
         <!-- External CSS -->
         <link rel="stylesheet" href="styles.css">
     </head>
@@ -52,7 +55,7 @@
         <!-- Main Content -->
         <main class="container-fluid main-container">
             <div class="row">
-                <!-- Left Sidebar - Menu Management Section (Student 2) -->
+                <!-- Left Sidebar - Menu Management Section (Student 2 - Parala) -->
                 <aside class="col-lg-4">
                     <section class="card menu-card" aria-labelledby="menu-heading">
                         <header class="card-header">
@@ -72,7 +75,154 @@
                         </div>
                     </section>
                 </aside>
+
+                <!-- Center - Order Management Section (Student 3 - Cajulis) -->
+                <section class="col-lg-4">
+                    <article class="card order-card" aria-labelledby="order-heading">
+                        <header class="card-header">
+                            <h2 class="section-title" id="order-heading">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                    <path d="M9 2v6h6V2"/>
+                                    <rect x="3" y="4" width="18" height="18" rx="2"/>
+                                    <path d="M9 22v-6"/>
+                                    <path d="M15 16v6"/>
+                                </svg>
+                                Create Order
+                            </h2>
+                        </header>
+                        <div class="card-body">
+                            <div class="current-order" id="currentOrder">
+                                <div class="order-empty-state">
+                                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                                        <circle cx="9" cy="21" r="1"/>
+                                        <circle cx="20" cy="21" r="1"/>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+                                    </svg>
+                                    <p>No items selected</p>
+                                    <small>Click on menu items to add them to the order</small>
+                                </div>
+                                <ul class="order-items" id="orderItems" aria-live="polite" aria-label="Current order items"></ul>
+                            </div>
+                            <footer class="order-summary" id="orderSummary" style="display: none;">
+                                <div class="summary-row">
+                                    <span class="summary-label">Items:</span>
+                                    <output class="summary-value" id="totalItems" for="orderItems">0</output>
+                                </div>
+                                <div class="summary-row total-row">
+                                    <span class="summary-label">Total:</span>
+                                    <output class="summary-value" id="totalPrice" for="orderItems">₱0.00</output>
+                                </div>
+                            </footer>
+                            <div class="order-actions" id="orderActions" style="display: none;">
+                                <button class="btn-complete" onclick="completeOrder()" aria-label="Complete current order">Complete Order</button>
+                                <button class="btn-clear" onclick="clearOrder()" aria-label="Clear current order">Clear</button>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+
+                <!-- Right Sidebar - Daily Sales Summary Section (Student 4 - Navarro) -->
+                <aside class="col-lg-4">
+                    <section class="card sales-card" aria-labelledby="sales-heading">
+                        <header class="card-header">
+                            <h2 class="section-title" id="sales-heading">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                    <line x1="12" y1="20" x2="12" y2="10"/>
+                                    <line x1="18" y1="20" x2="18" y2="4"/>
+                                    <line x1="6" y1="20" x2="6" y2="16"/>
+                                </svg>
+                                Daily Sales Summary
+                            </h2>
+                        </header>
+                        <div class="card-body">
+                            <div class="sales-stats">
+                                <article class="stat-card stat-revenue">
+                                    <div class="stat-icon" aria-hidden="true">
+                                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <line x1="12" y1="1" x2="12" y2="23"/>
+                                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                                        </svg>
+                                    </div>
+                                    <div class="stat-content">
+                                        <h3 class="stat-label">Total Sales</h3>
+                                        <output class="stat-value" id="totalSales">₱0.00</output>
+                                    </div>
+                                </article>
+                                
+                                <article class="stat-card stat-orders">
+                                    <div class="stat-icon" aria-hidden="true">
+                                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="3" y="3" width="7" height="7"/>
+                                            <rect x="14" y="3" width="7" height="7"/>
+                                            <rect x="14" y="14" width="7" height="7"/>
+                                            <rect x="3" y="14" width="7" height="7"/>
+                                        </svg>
+                                    </div>
+                                    <div class="stat-content">
+                                        <h3 class="stat-label">Number of Orders</h3>
+                                        <output class="stat-value" id="totalOrders">0</output>
+                                    </div>
+                                </article>
+
+                                <article class="stat-card stat-average">
+                                    <div class="stat-icon" aria-hidden="true">
+                                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                                        </svg>
+                                    </div>
+                                    <div class="stat-content">
+                                        <h3 class="stat-label">Average Order</h3>
+                                        <output class="stat-value" id="averageOrder">₱0.00</output>
+                                    </div>
+                                </article>
+                            </div>
+
+                            <figure class="sales-chart-container">
+                                <figcaption>
+                                    <h3 class="chart-title">Sales Timeline</h3>
+                                </figcaption>
+                                <canvas id="salesChart" role="img" aria-label="Sales chart showing hourly revenue"></canvas>
+                            </figure>
+
+                            <section class="order-history">
+                                <h3 class="history-title">Recent Orders</h3>
+                                <div class="history-list" id="orderHistory" aria-live="polite" aria-label="Recent order history">
+                                    <div class="empty-history">
+                                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                                            <path d="M12 8v4l3 3"/>
+                                            <circle cx="12" cy="12" r="10"/>
+                                        </svg>
+                                        <p>No orders yet today</p>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </section>
+                </aside>
             </div>
         </main>
+
+        <!-- Completion Animation Modal (Student 5 - Papagayo) -->
+        <section class="modal-overlay" id="completionModal" role="dialog" aria-modal="true" aria-labelledby="completion-title">
+            <div class="completion-animation">
+                <div class="success-checkmark" aria-hidden="true">
+                    <svg width="100" height="100" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="4"/>
+                        <path d="M30 50 L45 65 L70 35" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <h3 id="completion-title">Order Completed!</h3>
+                <p id="completionMessage"></p>
+            </div>
+        </section>
+
+        <!-- Bootstrap JS Bundle -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        
+        <!-- Chart.js for Sales Visualization (Student 4 - Navarro) -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        
+        <!-- Application JavaScript (All Students Integration) -->
+        <script src="app.js"></script>
     </body>
 </html>
