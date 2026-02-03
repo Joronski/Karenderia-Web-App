@@ -304,3 +304,509 @@ body::before {
 .card-body::-webkit-scrollbar-thumb:hover {
     background: var(--primary-green);
 }
+
+
+/* ===================================
+   Menu Management (Student 8)
+   =================================== */
+
+.menu-item {
+    background: linear-gradient(135deg, var(--white) 0%, var(--bg-green-subtle) 100%);
+    border: 2px solid var(--gray-200);
+    border-radius: 15px;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    text-align: left;
+    font-family: var(--font-body);
+    display: block;
+}
+
+.menu-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(13, 122, 79, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.menu-item:hover::before {
+    left: 100%;
+}
+
+.menu-item:hover,
+.menu-item:focus {
+    border-color: var(--primary-green);
+    box-shadow: 0 8px 16px rgba(13, 122, 79, 0.15);
+    transform: translateX(5px);
+    outline: none;
+}
+
+.menu-item:focus-visible {
+    outline: 3px solid var(--accent-green);
+    outline-offset: 2px;
+}
+
+.menu-item.selected {
+    background: linear-gradient(135deg, var(--bg-green-light) 0%, var(--bg-green-subtle) 100%);
+    border-color: var(--accent-green);
+    box-shadow: 0 4px 12px rgba(45, 212, 161, 0.25);
+}
+
+.menu-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.menu-item-name {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--gray-900);
+}
+
+.menu-item-price {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-green);
+    font-family: var(--font-display);
+}
+
+.menu-item-description {
+    font-size: 0.9rem;
+    color: var(--gray-600);
+    margin-bottom: 0.75rem;
+}
+
+.menu-item-category {
+    display: inline-block;
+    background: var(--primary-green);
+    color: var(--white);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* ===================================
+   Order Management (Student 8)
+   =================================== */
+
+.order-empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--gray-600);
+}
+
+.order-empty-state svg {
+    color: var(--gray-300);
+    margin-bottom: 1rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.order-empty-state p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--gray-700);
+    margin-bottom: 0.5rem;
+}
+
+.order-empty-state small {
+    color: var(--gray-500);
+}
+
+.order-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.order-item {
+    background: var(--bg-green-subtle);
+    border: 2px solid var(--accent-lime);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: slideInRight 0.4s ease;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.order-item-info {
+    flex: 1;
+}
+
+.order-item-name {
+    font-weight: 600;
+    color: var(--gray-900);
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+}
+
+.order-item-price {
+    color: var(--primary-green);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.order-item-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--white);
+    border-radius: 10px;
+    padding: 0.25rem;
+}
+
+.qty-btn {
+    background: var(--primary-green);
+    color: var(--white);
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    transition: all var(--transition-fast);
+}
+
+.qty-btn:hover,
+.qty-btn:focus {
+    background: var(--primary-green-dark);
+    transform: scale(1.1);
+}
+
+.qty-btn:focus-visible {
+    outline: 2px solid var(--accent-green);
+    outline-offset: 2px;
+}
+
+.qty-display {
+    min-width: 30px;
+    text-align: center;
+    font-weight: 600;
+    color: var(--gray-900);
+}
+
+.btn-remove {
+    background: var(--danger);
+    color: var(--white);
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.btn-remove:hover,
+.btn-remove:focus {
+    background: #dc2626;
+    transform: scale(1.1);
+}
+
+.btn-remove:focus-visible {
+    outline: 2px solid var(--danger);
+    outline-offset: 2px;
+}
+
+.order-summary {
+    background: linear-gradient(135deg, var(--bg-green-light) 0%, var(--bg-green-subtle) 100%);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    border: 2px solid var(--accent-green);
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+}
+
+.summary-label {
+    color: var(--gray-700);
+    font-weight: 500;
+}
+
+.summary-value {
+    color: var(--primary-green);
+    font-weight: 600;
+}
+
+.total-row {
+    border-top: 2px solid var(--accent-green);
+    padding-top: 0.75rem;
+    margin-top: 0.75rem;
+    font-size: 1.3rem;
+}
+
+.total-row .summary-value {
+    color: var(--primary-green-dark);
+    font-weight: 700;
+    font-family: var(--font-display);
+}
+
+.order-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.btn-complete,
+.btn-clear {
+    flex: 1;
+    padding: 1rem;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-complete {
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-dark) 100%);
+    color: var(--white);
+    box-shadow: 0 4px 12px rgba(13, 122, 79, 0.3);
+}
+
+.btn-complete:hover,
+.btn-complete:focus {
+    box-shadow: 0 6px 20px rgba(13, 122, 79, 0.4);
+    transform: translateY(-2px);
+}
+
+.btn-complete:focus-visible {
+    outline: 3px solid var(--accent-green);
+    outline-offset: 2px;
+}
+
+.btn-clear {
+    background: var(--white);
+    color: var(--gray-700);
+    border: 2px solid var(--gray-300);
+}
+
+.btn-clear:hover,
+.btn-clear:focus {
+    background: var(--gray-100);
+    border-color: var(--gray-400);
+}
+
+.btn-clear:focus-visible {
+    outline: 3px solid var(--gray-400);
+    outline-offset: 2px;
+}
+
+/* ===================================
+   Daily Sales Summary (Student 8)
+   =================================== */
+
+.sales-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, var(--white) 0%, var(--bg-green-subtle) 100%);
+    border-radius: 15px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    border: 2px solid var(--gray-200);
+    transition: all var(--transition-base);
+    animation: fadeInScale 0.6s ease backwards;
+}
+
+.stat-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.stat-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.stat-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+@keyframes fadeInScale {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.stat-card:hover {
+    border-color: var(--primary-green);
+    box-shadow: 0 8px 16px rgba(13, 122, 79, 0.15);
+    transform: translateY(-3px);
+}
+
+.stat-icon {
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--primary-green-light) 100%);
+    color: var(--white);
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(13, 122, 79, 0.25);
+}
+
+.stat-content {
+    flex: 1;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--gray-600);
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+}
+
+.stat-value {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-green-dark);
+}
+
+.sales-chart-container {
+    background: var(--white);
+    border: 2px solid var(--gray-200);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.chart-title {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 1rem;
+}
+
+.order-history {
+    background: var(--bg-green-subtle);
+    border-radius: 15px;
+    padding: 1.5rem;
+}
+
+.history-title {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 1rem;
+}
+
+.empty-history {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--gray-500);
+}
+
+.empty-history svg {
+    color: var(--gray-300);
+    margin-bottom: 0.5rem;
+}
+
+.history-item {
+    background: var(--white);
+    border: 2px solid var(--accent-lime);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    animation: slideInLeft 0.4s ease;
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.history-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.history-order-number {
+    font-weight: 700;
+    color: var(--primary-green);
+    font-family: var(--font-display);
+}
+
+.history-time {
+    font-size: 0.85rem;
+    color: var(--gray-600);
+}
+
+.history-total {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-green-dark);
+}
