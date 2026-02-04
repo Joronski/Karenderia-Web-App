@@ -4,30 +4,11 @@ A modern web application for managing daily operations of a small local Filipino
 
 ---
 
-## Group Members and their Contributions
-
-Recio - Team Leader & DevOps (Pull Request Manager)
-
-Parala, Navarro, Papagayo, Cajulis - Layout Developers (4 members)
-
-Rosario, Dela Torre, Layog - Functionality Developers (3 members)
-
-Datinguinoo, Aldep, Quitorio, Mateo - Styling Developers (4 members)
-
----
-
 ## 📋 Table of Contents
 
 - [Overview](#overview)
 - [Features](#features)
-- [Team Members](#team-members)
-- [Technologies Used](#technologies-used)
-- [Installation](#installation)
-- [Usage Guide](#usage-guide)
-- [Project Structure](#project-structure)
-- [Development Workflow](#development-workflow)
-- [Contributing](#contributing)
-- [License](#license)
+- [Group Members & Their Contribution](#group-members-and-their-contributions)
 
 ---
 
@@ -71,3 +52,15 @@ Datinguinoo, Aldep, Quitorio, Mateo - Styling Developers (4 members)
 - **Sales Timeline Chart** - Hour-by-hour sales visualization using Chart.js
 - **Recent Orders** - Display of last 5 orders with details
 - **Data Persistence** - Sales data stored in browser localStorage
+
+---
+
+## Group Members and their Contributions
+
+Recio - Team Leader & DevOps (Pull Request Manager)
+
+Parala, Navarro, Papagayo, Cajulis - Layout Developers (4 members)
+
+Rosario, Dela Torre, Layog - Functionality Developers (3 members)
+
+Datinguinoo, Aldep, Quitorio, Mateo - Styling Developers (4 members)
